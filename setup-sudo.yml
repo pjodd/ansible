@@ -1,0 +1,13 @@
+---
+# file: setup-sudo.yml
+- hosts: debians
+  gather_facts: false
+  become: yes
+  become_method: su
+
+  tasks:
+    - name: Install sudo
+      apt:
+        update_cache: yes
+        name: sudo
+        state: present
