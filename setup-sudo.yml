@@ -11,3 +11,8 @@
         update_cache: yes
         name: sudo
         state: present
+    - name: Add omni to sudo group
+      user:
+        name: omni
+        groups: sudo
+        append: yes
