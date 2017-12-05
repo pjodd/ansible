@@ -1,0 +1,41 @@
+All this should be automated with a playbook or a role.
+
+1. Copy template xl.cfg(5) to something with a name of your new domU
+
+   # cp /etc/xen/domu.d/template-debian.cfg /etc/xen/domu.d/$domuname}.cfg
+
+2. Create disk volume and filesystem
+
+  # lvcreate -L ${size}G -n lv_domu_${domuname} vg0
+  # mkfs.ext4 /dev/mapper/vg0-lv_domu_${domuname}
+
+  We do the above because nested LVM is messy and not needed.
+
+3. Mount the installation ISO
+
+  # mount -t iso9660 -o loop /root/isos/debian-9.2.1-amd64-netinst.iso /media/debian
+
+4. Edit the ${domuname}.cfg with your favourite $EDITOR to boot from
+   installation iso
+
+5. Boot the domU for installation and enter console
+
+  # xl create /etc/xen/domu.d/${domuname}.cfg
+  # xl console ${domuname}
+
+6. Choose languages etc, set IP, use manual partitioning, use the disk as
+   ext4 mountpoint / and no swap, choose only standard utilities.
+   Finish installation.
+
+7. Install /etc/git-commit.sh and git, edit /etc/.gitignore to include
+
+    shadow*
+    gshadow*
+    .sw?
+
+   Then run the git-commit.sh script (prefferably followed by comment like
+   "Initial commit").
+
+8. Install openssh-server and configure it.
+
+
