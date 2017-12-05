@@ -11,8 +11,12 @@
         update_cache: yes
         name: sudo
         state: present
-    - name: Add omni to sudo group
+    - name: Add users to sudo group
       user:
-        name: omni
+        name: "{{ item }}"
+        shell: /bin/bash
         groups: sudo
         append: yes
+      with_items:
+        - omni
+        - quite
