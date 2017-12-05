@@ -1,0 +1,6 @@
+---
+# file: roles/gateway/tasks/main.yml
+
+- name: Install packages
+  apt: pkg={{ item }} state=latest update-cache=yes
+  with_items: "{{ system_packages }}"

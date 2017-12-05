@@ -1,0 +1,7 @@
+---
+# file: roles/gateway/vars/main.yml
+
+system_packages:
+  - mtr-tiny
+  - tcpdump
+
