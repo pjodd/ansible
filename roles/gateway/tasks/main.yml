@@ -5,6 +5,24 @@
   apt_repository:
     repo: deb http://ftp.se.debian.org/debian/ stretch-backports main
     state: present
+
 - name: Install packages
   apt: pkg={{ item }} state=latest update-cache=yes
   with_items: "{{ gateway_packages }}"
+
+- name: Generate fastd keys, if none
+  shell: "/usr/bin/fastd --generate-key > /etc/fastd/fastd-keys"
+  args:
+    creates: "/etc/fastd/fastd-keys"
+
+- name: 0600 /etc/fastd/fastd-keys
+  file:
+    path: /etc/fastd/fastd-keys
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Checkout our fastd peers from github
+  git:
+    repo: https://github.com/pjodd/gluon-gateway-peers.git
+    dest: /etc/fastd/vpn
