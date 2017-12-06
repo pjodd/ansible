@@ -1,6 +1,12 @@
 ---
 # file: roles/gateway/tasks/main.yml
 
+- name: Authorized keys
+  authorized_key:
+    key: "{{ lookup('file', 'user_keys/{{ item }}') }}"
+    user: "{{ item }}"
+  with_items: "{{ gateway_users }}"
+
 - name: Setup Debian Backports repo
   apt_repository:
     repo: deb http://ftp.se.debian.org/debian/ stretch-backports main
