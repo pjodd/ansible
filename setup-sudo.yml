@@ -17,6 +17,4 @@
         shell: /bin/bash
         groups: sudo
         append: yes
-      with_items:
-        - omni
-        - quite
+      with_items: "{{ gateway_users }}"

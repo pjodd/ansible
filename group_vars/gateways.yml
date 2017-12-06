@@ -1,7 +1,10 @@
 ---
 # file: roles/gateway/vars/main.yml
 
-system_packages:
+gateway_packages:
   - mtr-tiny
   - tcpdump
 
+gateway_users:
+  - omni
+  - quite

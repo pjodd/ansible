@@ -3,4 +3,4 @@
 
 - name: Install packages
   apt: pkg={{ item }} state=latest update-cache=yes
-  with_items: "{{ system_packages }}"
+  with_items: "{{ gateway_packages }}"
