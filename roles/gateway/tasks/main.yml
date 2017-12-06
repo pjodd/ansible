@@ -26,3 +26,11 @@
   git:
     repo: https://github.com/pjodd/gluon-gateway-peers.git
     dest: /etc/fastd/vpn
+
+- name: Enable batman-adv module
+  copy:
+    src: 'etc/modules-load.d/batman.conf'
+    dest: '/etc/modules-load.d/batman.conf'
+    owner: root
+    group: root
+    mode: 0644
