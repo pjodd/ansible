@@ -4,6 +4,8 @@
 gateway_packages:
   - mtr-tiny
   - tcpdump
+  - batctl
+  - fastd
 
 gateway_users:
   - omni
