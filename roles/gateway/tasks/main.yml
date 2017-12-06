@@ -1,6 +1,10 @@
 ---
 # file: roles/gateway/tasks/main.yml
 
+- name: Setup Debian Backports repo
+  apt_repository:
+    repo: deb http://ftp.se.debian.org/debian/ stretch-backports main
+    state: present
 - name: Install packages
   apt: pkg={{ item }} state=latest update-cache=yes
   with_items: "{{ gateway_packages }}"
