@@ -6,6 +6,8 @@ gateway_packages:
   - tcpdump
   - batctl
   - fastd
+  - git
+  - haveged
 
 gateway_users:
   - omni
