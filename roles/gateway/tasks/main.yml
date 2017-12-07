@@ -35,6 +35,12 @@
 - name: fastd enabled & (re)started
   service: name=fastd enabled=yes state=restarted
 
+- name: sysctl net.ipv4.ip_forward
+  sysctl: name=net.ipv4.ip_forward value=1
+
+- name: sysctl net.ipv6.conf.all.forwarding
+  sysctl: name=net.ipv6.conf.all.forwarding value=1
+
 - name: Enable batman-adv module
   copy:
     src: 'etc/modules-load.d/batman.conf'
