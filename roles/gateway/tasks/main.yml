@@ -26,9 +26,11 @@
 
 - name: fastd.conf
   copy:
-    src=etc/fastd/vpn/fastd.conf
-    dest=/etc/fastd/vpn/fastd.conf
-    owner=root group=root mode=0644
+    src: 'etc/fastd/vpn/fastd.conf'
+    dest: '/etc/fastd/vpn/fastd.conf'
+    owner: root
+    group: root
+    mode: 0644
 
 - name: Enable batman-adv module
   copy:
