@@ -16,22 +16,19 @@
   apt: pkg={{ item }} state=latest update-cache=yes
   with_items: "{{ gateway_packages }}"
 
-- name: Generate fastd keys, if none
-  shell: "/usr/bin/fastd --generate-key > /etc/fastd/fastd-keys"
-  args:
-    creates: "/etc/fastd/fastd-keys"
-
-- name: 0600 /etc/fastd/fastd-keys
-  file:
-    path: /etc/fastd/fastd-keys
-    owner: root
-    group: root
-    mode: 0600
-
 - name: Checkout our fastd peers from github
   git:
     repo: https://github.com/pjodd/gluon-gateway-peers.git
-    dest: /etc/fastd/vpn
+    dest: /etc/fastd/vpn/peers
+
+- name: Generate fastd secret, if none (chmoded 0600)
+  fastd_key: path=/etc/fastd/vpn/secret.conf
+
+- name: fastd.conf
+  copy:
+    src=etc/fastd/vpn/fastd.conf
+    dest=/etc/fastd/vpn/fastd.conf
+    owner=root group=root mode=0644
 
 - name: Enable batman-adv module
   copy:
