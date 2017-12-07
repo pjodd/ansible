@@ -8,6 +8,7 @@ gateway_packages:
   - fastd
   - git
   - haveged
+  - bridge-utils
 
 gateway_users:
   - omni
