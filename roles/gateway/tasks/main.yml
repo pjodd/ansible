@@ -32,6 +32,9 @@
     group: root
     mode: 0644
 
+- name: fastd enabled & (re)started
+  service: name=fastd enabled=yes state=restarted
+
 - name: Enable batman-adv module
   copy:
     src: 'etc/modules-load.d/batman.conf'
