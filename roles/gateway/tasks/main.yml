@@ -25,8 +25,8 @@
   fastd_key: path=/etc/fastd/vpn/secret.conf
 
 - name: fastd.conf
-  copy:
-    src: 'etc/fastd/vpn/fastd.conf'
+  template:
+    src: 'fastd.conf.j2'
     dest: '/etc/fastd/vpn/fastd.conf'
     owner: root
     group: root
