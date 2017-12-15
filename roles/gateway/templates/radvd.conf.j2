@@ -1,0 +1,27 @@
+interface br-pjodd {
+  AdvSendAdvert on;
+  #
+  # Please uncomment if you don't want an IPv6 default route to be broadcasted.
+  #
+  # AdvDefaultLifetime 0;
+  IgnoreIfMissing on;
+  AdvManagedFlag off;
+  AdvOtherConfigFlag on;
+  MaxRtrAdvInterval 200;
+
+  prefix fdec:910d:d05e::/64 {
+     AdvOnLink on;
+     AdvAutonomous on;
+     AdvRouterAddr on;
+     AdvPreferredLifetime 14400;
+     AdvValidLifetime 86400;
+  };
+
+  RDNSS fdec:910d:d05e::ff0{{ gateway_number }} {
+  };
+
+  route fc00::/7
+  {
+     AdvRouteLifetime 1200;
+  };
+};
