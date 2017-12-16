@@ -4,8 +4,8 @@ debgw8=198.167.222.8
 debgw9=198.167.222.9
 
 [gateways]
-debgw8 gateway_number=1
-debgw9 gateway_number=2
+debgw8 gateway_number=1 ssh_port=8822
+debgw9 gateway_number=2 ssh_port=9922
 
 [debians]
 debgw8
