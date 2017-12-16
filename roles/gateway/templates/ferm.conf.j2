@@ -3,6 +3,9 @@
 #  Configuration file for ferm(1).
 #
 
+@def $PJODD_NET = ( 10.46.0.0/16 );
+@def $PJODD_NET6 = ( fdec:910d:d05e/64 );
+
 domain (ip ip6) {
     table filter {
         chain INPUT {
@@ -37,3 +40,19 @@ domain (ip ip6) {
         }
     }
 }
+
+domain ip {
+    table nat {
+        chain POSTROUTING {
+	    saddr $PJODD_NET outerface eth0 MASQUERADE;
+	}
+    }
+}
+
+#domain ip6 {
+#    table nat {
+#        chain POSTROUTING {
+#	    saddr $PJODD_NET6 outerface eth0 MASQUERADE;
+#	}
+#    }
+#}
