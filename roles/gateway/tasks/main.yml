@@ -16,6 +16,15 @@
   apt: pkg={{ item }} state=latest update-cache=yes
   with_items: "{{ gateway_packages }}"
 
+- name: ferm.conf
+  template:
+    src: 'ferm.conf.j2'
+    dest: '/etc/ferm/ferm.conf'
+    owner: root
+    group: adm
+    mode: 0644
+  notify: run ferm
+
 - name: Checkout our fastd peers from github
   git:
     repo: https://github.com/pjodd/gluon-gateway-peers.git

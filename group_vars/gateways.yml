@@ -9,6 +9,8 @@ gateway_packages:
   - git
   - haveged
   - bridge-utils
+  - ferm
+  - iptables-persistent
 
 gateway_users:
   - omni
