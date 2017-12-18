@@ -1,0 +1,22 @@
+---
+# file: roles/admins/tasks/main.yml
+
+- name: Install sudo
+  apt:
+    update_cache: yes
+    name: sudo
+    state: present
+
+- name: Add users to adm and sudo groups
+  user:
+    name: "{{ item }}"
+    shell: /bin/bash
+    groups: adm,sudo
+    append: yes
+  with_items: "{{ gateway_users }}"
+
+- name: Authorized keys
+  authorized_key:
+    key: "{{ lookup('file', 'user_keys/{{ item }}') }}"
+    user: "{{ item }}"
+  with_items: "{{ gateway_users }}"

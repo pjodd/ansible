@@ -1,25 +1,9 @@
 ---
-# file: setup-sudo.yml
+# file: setup-admins.yml
 - hosts: debians
   gather_facts: false
   become: yes
   become_method: su
 
-  tasks:
-    - name: Install sudo
-      apt:
-        update_cache: yes
-        name: sudo
-        state: present
-    - name: Add users to sudo group
-      user:
-        name: "{{ item }}"
-        shell: /bin/bash
-        groups: adm,sudo
-        append: yes
-      with_items: "{{ gateway_users }}"
-    - name: Authorized keys
-      authorized_key:
-        key: "{{ lookup('file', 'user_keys/{{ item }}') }}"
-        user: "{{ item }}"
-      with_items: "{{ gateway_users }}"
+  roles:
+    - admins
