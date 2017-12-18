@@ -1,0 +1,21 @@
+---
+# file: roles/gateway/tasks/fastd.yml
+
+- name: Checkout our fastd peers from github
+  git:
+    repo: https://github.com/pjodd/gluon-gateway-peers.git
+    dest: /etc/fastd/vpn/peers
+
+- name: Generate fastd secret, if none (chmoded 0600)
+  fastd_key: path=/etc/fastd/vpn/secret.conf
+
+- name: fastd.conf
+  template:
+    src: 'fastd.conf.j2'
+    dest: '/etc/fastd/vpn/fastd.conf'
+    owner: root
+    group: root
+    mode: 0644
+
+- name: fastd enabled & (re)started
+  service: name=fastd enabled=yes state=restarted
