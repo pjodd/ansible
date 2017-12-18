@@ -1,6 +1,6 @@
 ---
 # file: setup-admins.yml
-- hosts: debians
+- hosts: gateways
   gather_facts: false
   become: yes
   become_method: su
