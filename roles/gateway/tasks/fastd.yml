@@ -7,7 +7,8 @@
     dest: /etc/fastd/vpn/peers
 
 - name: Generate fastd secret, if none (chmoded 0600)
-  fastd_key: path=/etc/fastd/vpn/secret.conf
+  fastd_key:
+    path: /etc/fastd/vpn/secret.conf
 
 - name: fastd.conf
   template:
@@ -18,4 +19,7 @@
     mode: 0644
 
 - name: fastd enabled & (re)started
-  service: name=fastd enabled=yes state=restarted
+  service:
+    name: fastd
+    enabled: yes
+    state: restarted
