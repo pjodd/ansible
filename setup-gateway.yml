@@ -1,7 +1,7 @@
 ---
 # file: setup-gateway.yml
 - hosts: gateways
-  gather_facts: false
+  gather_facts: true
   become: yes
   become_method: sudo
 
