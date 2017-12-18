@@ -18,3 +18,8 @@
         groups: adm,sudo
         append: yes
       with_items: "{{ gateway_users }}"
+    - name: Authorized keys
+      authorized_key:
+        key: "{{ lookup('file', 'user_keys/{{ item }}') }}"
+        user: "{{ item }}"
+      with_items: "{{ gateway_users }}"
