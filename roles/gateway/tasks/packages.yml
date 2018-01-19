@@ -6,9 +6,13 @@
     repo: deb http://ftp.se.debian.org/debian/ stretch-backports main
     state: present
 
+- name: Update installed packages
+  apt:
+    upgrade: dist
+    update-cache: yes
+
 - name: Install packages
   apt:
     pkg: "{{ item }}"
     state: latest
-    update-cache: yes
   with_items: "{{ gateway_packages }}"
