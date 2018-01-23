@@ -17,9 +17,16 @@
     owner: root
     group: root
     mode: 0644
+  register: fastd_conf
 
-- name: fastd enabled & (re)started
+- name: fastd enabled & started
   service:
     name: fastd
     enabled: yes
-    state: restarted
+    state: started
+
+- name: reload fastd if config changed
+  service:
+    name: fastd
+    state: reloaded
+  when: fastd_conf.changed
