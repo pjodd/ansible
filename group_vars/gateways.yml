@@ -13,7 +13,10 @@ gateway_packages:
   - iptables-persistent
   - net-tools
   - iftop
+  - tcpdump
 
 gateway_users:
   - omni
   - quite
+
+fastd_port: 10006
