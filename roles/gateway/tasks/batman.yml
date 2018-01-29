@@ -8,3 +8,8 @@
     owner: root
     group: root
     mode: 0644
+
+- name: Load batman-adv module
+  modprobe:
+    name: batman-adv
+    state: present
