@@ -25,8 +25,8 @@
     enabled: yes
     state: started
 
-- name: reload fastd if config changed
+- name: restart fastd if config changed
   service:
     name: fastd
-    state: reloaded
+    state: restarted
   when: fastd_conf.changed
