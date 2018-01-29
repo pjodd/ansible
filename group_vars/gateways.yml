@@ -11,6 +11,8 @@ gateway_packages:
   - bridge-utils
   - ferm
   - iptables-persistent
+  - net-tools
+  - iftop
 
 gateway_users:
   - omni
