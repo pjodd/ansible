@@ -19,3 +19,10 @@ debgw9
 
 [alpines]
 fwalpine
+
+[dc-ipr]
+fwalpine
+gw05
+gw06
+debgw8
+debgw9
