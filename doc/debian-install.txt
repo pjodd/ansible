@@ -1,4 +1,5 @@
-All this should be automated with a playbook or a role.
+All this should be automated with a playbook or a role, but I want to get
+install with debootstrap(8) working first.
 
 1. Copy template xl.cfg(5) to something with a name of your new domU
 
