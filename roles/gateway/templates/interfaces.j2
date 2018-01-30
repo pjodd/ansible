@@ -10,7 +10,7 @@ auto lo
 iface lo inet loopback
 
 # The primary network interface
-allow-hotplug eth0
+auto eth0
 iface eth0 inet static
   address {{ outernet.inet.subnet }}.{{ gateway_number }}/{{ outernet.inet.cidr }}
   gateway {{ outernet.inet.gw }}
