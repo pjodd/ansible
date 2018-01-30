@@ -1,0 +1,26 @@
+# {{ ansible_managed }}
+
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+allow-hotplug eth0
+iface eth0 inet static
+  address {{ outernet.inet.subnet }}.{{ gateway_number }}/{{ outernet.inet.cidr }}
+  gateway {{ outernet.inet.gw }}
+  # dns-* options are implemented by the resolvconf package, if installed
+  dns-nameservers {{ outernet.inet.dns }}
+  dns-search pjodd.se
+
+iface eth0 inet6 static
+  address {{ outernet.inet6.subnet }}{{ gateway_number }}
+  netmask {{ outernet.inet6.cidr }}
+  gateway {{ outernet.inet6.gw }}
+  dns-nameservers {{ outernet.inet6.dns }}
+  accept_ra off
