@@ -1,5 +1,5 @@
 ---
-# file: roles/gateway/vars/main.yml
+# file: group_vars/gateways.yml
 
 gateway_packages:
   - mtr-tiny
