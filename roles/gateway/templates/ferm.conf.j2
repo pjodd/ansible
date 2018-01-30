@@ -3,7 +3,7 @@
 #  Configuration file for ferm(1).
 #
 
-@def $HOST_ADDR = ( {{ ansible_default_ipv4.address }} {{ ansible_default_ipv6.address }} );
+@def $HOST_ADDR = ( {{ ansible_default_ipv4.address }} {% if ansible_default_ipv6.address is defined %}{{ ansible_default_ipv6.address }}{% endif %} );
 @def $PJODD_NET = ( 10.46.0.0/16 );
 @def $PJODD_NET6 = ( fdec:910d:d05e/64 );
 
