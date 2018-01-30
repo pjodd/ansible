@@ -8,4 +8,4 @@
     owner: root
     group: root
     mode: 0644
-  register: network_interfaces
+  notify: ifreload

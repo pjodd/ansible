@@ -21,4 +21,4 @@
     owner: root
     group: root
     mode: 0644
-  register: batman_interfaces
+  notify: ifreload
