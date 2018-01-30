@@ -10,7 +10,7 @@ outernet:
     dns: 46.246.46.246 194.132.32.32
 
   inet6:
-    gw: 2C0F:F930:0:4::1
-    subnet: 2C0F:F930:0:4::
+    gw: "2C0F:F930:0:4::1"
+    subnet: "2C0F:F930:0:4::"
     cidr: 64
-    dns: 2001:67C:1350:DEAD:BEEF::246 2C0F:F930:DEAD:BEEF::32
+    dns: "2001:67C:1350:DEAD:BEEF::246 2C0F:F930:DEAD:BEEF::32"
