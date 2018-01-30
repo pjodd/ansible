@@ -19,7 +19,7 @@ iface eth0 inet static
   dns-search pjodd.se
 
 iface eth0 inet6 static
-  address {{ outernet.inet6.subnet }}{{ gateway_number }}
+  address {{ outernet.inet6.subnet }}{{ gateway_number }}/{{ outernet.inet6.cidr }}
   netmask {{ outernet.inet6.cidr }}
   gateway {{ outernet.inet6.gw }}
   # dns-* options are implemented by the resolvconf package, if installed
