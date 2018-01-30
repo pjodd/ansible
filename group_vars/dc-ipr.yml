@@ -1,0 +1,16 @@
+---
+# file: group_vars/dc-ipr.yml
+
+outernet:
+  inet:
+    gw: 198.167.222.1
+    netmask: 255.255.255.0
+    subnet: 198.167.222.0
+    cidr: 24
+    dns: 46.246.46.246 194.132.32.32
+
+  inet6:
+    gw: 2C0F:F930:0:4::1
+    subnet: 2C0F:F930:0:4::
+    cidr: 64
+    dns: 2001:67C:1350:DEAD:BEEF::246 2C0F:F930:DEAD:BEEF::32
