@@ -53,10 +53,12 @@ domain ip {
     }
 }
 
-#domain ip6 {
-#    table nat {
-#        chain POSTROUTING {
-#	    saddr $PJODD_NET6 outerface eth0 MASQUERADE;
-#	}
-#    }
-#}
+{% if outernet.inet6.subnet is defined %}
+domain ip6 {
+    table nat {
+        chain POSTROUTING {
+	    saddr $PJODD_NET6 outerface eth0 MASQUERADE;
+	}
+    }
+}
+{% endif %}
