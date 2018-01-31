@@ -48,7 +48,7 @@ domain (ip ip6) {
 domain ip {
     table nat {
         chain POSTROUTING {
-	    saddr $PJODD_NET outerface eth0 MASQUERADE;
+	    saddr $PJODD_NET daddr ! $PJODD_NET outerface eth0 MASQUERADE;
 	}
     }
 }
@@ -57,7 +57,7 @@ domain ip {
 domain ip6 {
     table nat {
         chain POSTROUTING {
-	    saddr $PJODD_NET6 outerface eth0 MASQUERADE;
+	    saddr $PJODD_NET6 daddr ! $PJODD_NET6 outerface eth0 MASQUERADE;
 	}
     }
 }
