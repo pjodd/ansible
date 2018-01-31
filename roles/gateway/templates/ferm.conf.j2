@@ -26,7 +26,7 @@ domain (ip ip6) {
             daddr $HOST_ADDR proto tcp dport {{ ssh_port }}  ACCEPT;
 
             # allow fastd connections
-            daddr $HOST_ADDR proto tcp dport {{ fastd_port }}  ACCEPT;
+            daddr $HOST_ADDR proto udp dport {{ fastd_port }}  ACCEPT;
         }
         chain OUTPUT {
             policy ACCEPT;
