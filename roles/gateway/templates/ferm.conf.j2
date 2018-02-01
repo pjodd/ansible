@@ -26,7 +26,10 @@ domain (ip ip6) {
             daddr $HOST_ADDR proto tcp dport {{ ssh_port }}  ACCEPT;
 
             # allow fastd connections
-            daddr $HOST_ADDR proto udp dport {{ fastd_port }}  ACCEPT;
+            daddr $HOST_ADDR saddr ! $PJODD_NET proto udp dport {{ fastd_port }}  ACCEPT;
+{% if outernet.inet6.subnet is defined %}
+            daddr $HOST_ADDR saddr ! $PJODD_NET6 proto udp dport {{ fastd_port }}  ACCEPT;
+{% endif %}
         }
         chain OUTPUT {
             policy ACCEPT;
