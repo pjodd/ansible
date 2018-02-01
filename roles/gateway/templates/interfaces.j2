@@ -18,9 +18,11 @@ iface eth0 inet static
   dns-nameservers {{ outernet.inet.dns }}
   dns-search pjodd.se
 
+{% if outernet.inet6.subnet is defined %}
 iface eth0 inet6 static
   address {{ outernet.inet6.subnet }}{{ gateway_number }}/{{ outernet.inet6.cidr }}
   gateway {{ outernet.inet6.gw }}
   # dns-* options are implemented by the resolvconf package, if installed
   dns-nameservers {{ outernet.inet6.dns }}
   accept_ra off
+{% endif %}
