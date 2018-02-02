@@ -1,0 +1,44 @@
+---
+# file: roles/gateway/tasks/dhcpd.yml
+
+- name: Configure kea-dhcp4.conf
+  template:
+    src: 'kea-dhcp4.conf.j2'
+    dest: '/etc/kea/kea-dhcp4.conf'
+    owner: root
+    group: root
+    mode: 0644
+  register: kea_dhcp4_conf
+
+- name: restart kea-dhcp4-server if config changed
+  service:
+    name: kea-dhcp4-server
+    state: restarted
+  when: kea_dhcp4_conf.changed
+
+- name: kea-dhcp4-server enabled & started
+  service:
+    name: kea-dhcp4-server
+    enabled: yes
+    state: started
+
+- name: Configure kea-dhcp6.conf
+  template:
+    src: 'kea-dhcp6.conf.j2'
+    dest: '/etc/kea/kea-dhcp6.conf'
+    owner: root
+    group: root
+    mode: 0644
+  register: kea_dhcp6_conf
+
+- name: restart kea-dhcp6-server if config changed
+  service:
+    name: kea-dhcp6-server
+    state: restarted
+  when: kea_dhcp6_conf.changed
+
+- name: kea-dhcp6-server enabled & started
+  service:
+    name: kea-dhcp6-server
+    enabled: yes
+    state: started
