@@ -10,17 +10,17 @@
     mode: 0644
   register: kea_dhcp4_conf
 
-- name: restart kea-dhcp4-server if config changed
-  service:
-    name: kea-dhcp4-server
-    state: restarted
-  when: kea_dhcp4_conf.changed
+  #- name: restart kea-dhcp4-server if config changed
+  #  service:
+  #    name: kea-dhcp4-server
+  #    state: restarted
+  #  when: kea_dhcp4_conf.changed
 
 - name: kea-dhcp4-server enabled & started
   service:
     name: kea-dhcp4-server
-    enabled: yes
-    state: started
+    enabled: no
+    state: stopped
 
 - name: Configure kea-dhcp6.conf
   template:
@@ -31,17 +31,17 @@
     mode: 0644
   register: kea_dhcp6_conf
 
-- name: restart kea-dhcp6-server if config changed
-  service:
-    name: kea-dhcp6-server
-    state: restarted
-  when: kea_dhcp6_conf.changed
+  #- name: restart kea-dhcp6-server if config changed
+  #  service:
+  #    name: kea-dhcp6-server
+  #    state: restarted
+  #  when: kea_dhcp6_conf.changed
 
 - name: kea-dhcp6-server enabled & started
   service:
     name: kea-dhcp6-server
-    enabled: yes
-    state: started
+    enabled: no
+    state: stopped
 
 - name: Configure radvd.conf
   template:
@@ -52,14 +52,14 @@
     mode: 0644
   register: radvd_conf
 
-- name: restart radvd if config changed
-  service:
-    name: radvd
-    state: restarted
-  when: radvd_conf.changed
+  #- name: restart radvd if config changed
+  #  service:
+  #    name: radvd
+  #    state: restarted
+  #  when: radvd_conf.changed
 
 - name: radvd enabled & started
   service:
     name: radvd
-    enabled: yes
-    state: started
+    enabled: no
+    state: stopped
