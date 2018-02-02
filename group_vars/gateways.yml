@@ -38,6 +38,8 @@ gateway_packages:
   - iftop
   - tcpdump
   - ifupdown2
+  - kea-dhcp4-server
+  - kea-dhcp6-server
 
 gateway_users:
   - omni
