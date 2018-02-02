@@ -45,8 +45,13 @@
 # also a list of structures.
   "subnet4": [
   {    "subnet": "{{ pjoddnet.subnet }}.0/{{ pjoddnet.cidr }}",
-       "pools": [ { "pool": "{{ pjoddnet.gw.get(gateway_number).range }}" } ] }
-  ]
+       "pools": [ { "pool": "{{ pjoddnet.gw.get(gateway_number).range }}" } ],
+       "option-data": [
+       {
+         "name": "routers",
+	 "data": "{{ pjoddnet.subnet }}.{{ gateway_number }}"
+       } ]
+  } ]
 },
 
 # Logging configuration starts here. It tells Kea servers to store
