@@ -49,8 +49,17 @@
 # The following list defines subnets. Uncomment to enable them.
   "subnet6": [
   {    "subnet": "{{ pjoddnet.subnet6 }}::/{{ pjoddnet.prefix }}",
-       "pools": [ { "pool": "{{ pjoddnet.subnet6 }}:0:{{ gateway_number }}::/{{ pjoddnet.range6 }}" } ] }
-  ]
+       "pools": [ { "pool": "{{ pjoddnet.subnet6 }}:0:{{ gateway_number }}::/{{ pjoddnet.range6 }}" } ],
+       "option-data": [
+       {
+         "name": "routers",
+         "data": "{{ pjoddnet.subnet6 }}::ff0{{ gateway_number }}"
+       },
+       {
+         "name": "dns-servers",
+         "data": "2001:67C:1350:DEAD:BEEF::246, 2C0F:F930:DEAD:BEEF::32"
+       } ]
+  } ]
 },
 
 # Logging configuration starts here. It tells Kea servers to store
