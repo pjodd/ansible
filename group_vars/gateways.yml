@@ -1,6 +1,29 @@
 ---
 # file: group_vars/gateways.yml
 
+pjoddnet:
+  netmask: 255.255.0.0
+  subnet: 10.46.0
+  cidr: 16
+  subnet6: "fdec:910d:d05e"
+  prefix: 64
+  range6: 80
+  gw:
+    1:
+      range: "10.46.64.1 - 10.46.95.254"
+    2:
+      range: "10.46.96.1 - 10.46.127.254"
+    3:
+      range: "10.46.128.1 - 10.46.159.254"
+    4:
+      range: "10.46.160.1 - 10.46.191.254"
+    5:
+      range: "10.46.192.1 - 10.46.223.254"
+      dns: 46.246.46.246 194.132.32.32
+    6:
+      range: "10.46.224.1 - 10.46.255.254"
+      dns: 46.246.46.246 194.132.32.32
+
 gateway_packages:
   - mtr-tiny
   - tcpdump
