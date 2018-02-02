@@ -52,11 +52,10 @@
        "pools": [ { "pool": "{{ pjoddnet.subnet6 }}:0:{{ gateway_number }}::/{{ pjoddnet.range6 }}" } ],
        "option-data": [
        {
-         "name": "routers",
-         "data": "{{ pjoddnet.subnet6 }}::ff0{{ gateway_number }}"
-       },
-       {
          "name": "dns-servers",
+	 "code": 23,
+	 "space": "dhcp6",
+	 "csv-format": true,
          "data": "2001:67C:1350:DEAD:BEEF::246, 2C0F:F930:DEAD:BEEF::32"
        } ]
   } ]
