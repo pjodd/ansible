@@ -7,7 +7,7 @@
     dest: '/etc/ferm/ferm.conf'
     owner: root
     group: adm
-    mode: 0644
+    mode: 0600
   notify: run ferm
 
 - name: Allow IP forwarding (sysctl, IPv4 & IPv6)
