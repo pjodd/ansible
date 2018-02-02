@@ -53,7 +53,7 @@ domain (ip ip6) {
 domain ip {
     table nat {
         chain POSTROUTING {
-	    saddr $PJODD_NET daddr ! $PJODD_NET outerface eth0 MASQUERADE;
+	    saddr $PJODD_NET daddr ! $PJODD_NET outerface {{ ansible_default_ipv4.interface }} MASQUERADE;
 	}
     }
 }
@@ -62,7 +62,7 @@ domain ip {
 domain ip6 {
     table nat {
         chain POSTROUTING {
-	    saddr $PJODD_NET6 daddr ! $PJODD_NET6 outerface eth0 MASQUERADE;
+	    saddr $PJODD_NET6 daddr ! $PJODD_NET6 outerface {{ ansible_default_ipv6.interface }} MASQUERADE;
 	}
     }
 }
