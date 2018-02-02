@@ -4,8 +4,10 @@
 #
 
 @def $HOST_ADDR = ( {{ outernet.inet.subnet }}.{{ gateway_number }} {% if outernet.inet6.subnet is defined %}{{ outernet.inet6.subnet }}{{ gateway_number }}{% endif %} );
-@def $PJODD_NET = ( 10.46.0.0/16 );
-@def $PJODD_NET6 = ( fdec:910d:d05e::/64 );
+@def $PJODD_NET = ( {{ pjoddnet.subnet }}.0/{{ pjoddnet.cidr }} );
+{% if outernet.inet6.subnet is defined %}
+@def $PJODD_NET6 = ( {{ pjoddnet.subnet6 }}::/{{ pjoddnet.prefix }} );
+{% endif %}
 
 domain (ip ip6) {
     table filter {

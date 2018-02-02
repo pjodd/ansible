@@ -10,10 +10,8 @@ iface bat0 inet6 manual
 
 auto br-pjodd
 iface br-pjodd inet static
-  address 10.46.0.{{ gateway_number }}
-  netmask 255.255.0.0
+  address {{ pjoddnet.subnet }}.{{ gateway_number }}/{{ pjoddnet.cidr }}
   bridge-ports bat0
 
 iface br-pjodd inet6 static
-  address fdec:910d:d05e::ff0{{ gateway_number }}
-  netmask 64
+  address {{ pjoddnet.subnet6 }}::ff0{{ gateway_number }}/{{ pjoddnet.prefix }}
