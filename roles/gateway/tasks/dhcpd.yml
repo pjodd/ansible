@@ -42,3 +42,24 @@
     name: kea-dhcp6-server
     enabled: yes
     state: started
+
+- name: Configure radvd.conf
+  template:
+    src: 'radvd.conf.j2'
+    dest: '/etc/radvd.conf'
+    owner: root
+    group: root
+    mode: 0644
+  register: radvd_conf
+
+- name: restart radvd if config changed
+  service:
+    name: radvd
+    state: restarted
+  when: radvd_conf.changed
+
+- name: radvd enabled & started
+  service:
+    name: radvd
+    enabled: yes
+    state: started

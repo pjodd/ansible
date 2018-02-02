@@ -40,6 +40,7 @@ gateway_packages:
   - ifupdown2
   - kea-dhcp4-server
   - kea-dhcp6-server
+  - radvd
 
 gateway_users:
   - omni
