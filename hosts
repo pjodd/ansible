@@ -2,20 +2,14 @@
 gw05=198.167.222.5
 gw06=198.167.222.6
 fwalpine=198.167.222.7
-debgw8=198.167.222.8
-debgw9=198.167.222.9
 
 [gateways]
 gw05 gateway_number=5 ssh_port=5522
 gw06 gateway_number=6 ssh_port=6622
-debgw8 gateway_number=8 ssh_port=8822
-debgw9 gateway_number=9 ssh_port=9922
 
 [debians]
 gw05
 gw06
-debgw8
-debgw9
 
 [alpines]
 fwalpine
@@ -24,5 +18,3 @@ fwalpine
 fwalpine
 gw05
 gw06
-debgw8
-debgw9
