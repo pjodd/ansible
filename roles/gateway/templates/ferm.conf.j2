@@ -46,6 +46,8 @@ domain (ip ip6) {
             # connection tracking
             mod state state INVALID DROP;
             mod state state (ESTABLISHED RELATED) ACCEPT;
+
+	    saddr $PJODD_NET daddr ! $PJODD_NET interface br-pjodd ACCEPT;
         }
     }
 }
@@ -53,7 +55,7 @@ domain (ip ip6) {
 domain ip {
     table nat {
         chain POSTROUTING {
-	    saddr $PJODD_NET daddr ! $PJODD_NET outerface {{ ansible_default_ipv4.interface }} MASQUERADE;
+	    saddr $PJODD_NET daddr ! $PJODD_NET outerface {{ ansible_default_ipv4.interface }} SNAT to {{ outernet.inet.subnet }}.{{ gateway_number }};
 	}
     }
 }
