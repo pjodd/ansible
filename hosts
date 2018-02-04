@@ -1,15 +1,20 @@
 # Define hosts
+gw05=198.167.222.5
+gw06=198.167.222.6
 fwalpine=198.167.222.7
-debgw8=198.167.222.8
-debgw9=198.167.222.9
 
 [gateways]
-debgw8 gateway_number=1 ssh_port=8822
-debgw9 gateway_number=2 ssh_port=9922
+gw05 gateway_number=5 ssh_port=5522
+gw06 gateway_number=6 ssh_port=6622
 
 [debians]
-debgw8
-debgw9
+gw05
+gw06
 
 [alpines]
 fwalpine
+
+[dc-ipr]
+fwalpine
+gw05
+gw06

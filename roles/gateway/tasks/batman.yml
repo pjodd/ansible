@@ -8,3 +8,17 @@
     owner: root
     group: root
     mode: 0644
+
+- name: Load batman-adv module
+  modprobe:
+    name: batman-adv
+    state: present
+
+- name: Add batman-adv network interfaces conf
+  template:
+    src: 'batman.j2'
+    dest: '/etc/network/interfaces.d/batman'
+    owner: root
+    group: root
+    mode: 0644
+  notify: ifreload

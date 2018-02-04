@@ -1,0 +1,83 @@
+# This is a basic configuration for DHCPv6 server.
+# Subnet declarations are commented out and no interfaces are listed.
+# Therefore, the servers will not listen or respond to any queries.
+# The basic configuration must be extended to specify interfaces on
+# which the servers should listen. Also, subnets and options must be
+# declared.
+{
+
+# DHCPv6 configuration starts here.
+"Dhcp6":
+{
+# Add names of interfaces to listen on.
+  "interfaces-config": {
+    "interfaces": [ "br-pjodd" ]
+  },
+
+# Use Memfile lease database backend to store leases in a CSV file.
+  "lease-database": {
+    "type": "memfile"
+  },
+
+# Setup reclamation of the expired leases and leases affinity.
+# Expired leases will be reclaimed every 10 seconds. Every 25
+# seconds reclaimed leases, which have expired more than 3600
+# seconds ago, will be removed. The limits for leases reclamation
+# are 100 leases or 250 ms for a single cycle. A warning message
+# will be logged if there are still expired leases in the
+# database after 5 consecutive reclamation cycles.
+  "expired-leases-processing": {
+    "reclaim-timer-wait-time": 10,
+    "flush-reclaimed-timer-wait-time": 25,
+    "hold-reclaimed-time": 3600,
+    "max-reclaim-leases": 100,
+    "max-reclaim-time": 250,
+    "unwarned-reclaim-cycles": 5
+  },
+
+# Addresses will be assigned with preferred and valid lifetimes
+# being 3000 and 4000, respectively. Client is told to start
+# renewing after 1000 seconds. If the server does not respond
+# after 2000 seconds since the lease was granted, client is supposed
+# to start REBIND procedure (emergency renewal that allows switching
+# to a different server).
+  "preferred-lifetime": 3000,
+  "valid-lifetime": 4000,
+  "renew-timer": 1000,
+  "rebind-timer": 2000,
+
+# The following list defines subnets. Uncomment to enable them.
+  "subnet6": [
+  {    "subnet": "{{ pjoddnet.subnet6 }}::/{{ pjoddnet.prefix }}",
+       "pools": [ { "pool": "{{ pjoddnet.subnet6 }}:0:{{ gateway_number }}::/{{ pjoddnet.range6 }}" } ],
+       "option-data": [
+       {
+         "name": "dns-servers",
+	 "code": 23,
+	 "space": "dhcp6",
+	 "csv-format": true,
+         "data": "2001:67C:1350:DEAD:BEEF::246, 2C0F:F930:DEAD:BEEF::32"
+       } ]
+  } ]
+},
+
+# Logging configuration starts here. It tells Kea servers to store
+# all log messages (on severity INFO or more) in a file.
+# debuglevel variable is used on DEBUG level only.
+"Logging":
+{
+  "loggers": [
+    {
+      "name": "kea-dhcp6",
+      "output_options": [
+          {
+            "output": "/var/log/kea-dhcp6.log"
+          }
+      ],
+      "severity": "INFO",
+      "debuglevel": 0
+    },
+  ]
+}
+
+}

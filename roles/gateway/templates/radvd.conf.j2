@@ -9,7 +9,7 @@ interface br-pjodd {
   AdvOtherConfigFlag on;
   MaxRtrAdvInterval 200;
 
-  prefix fdec:910d:d05e::/64 {
+  prefix {{ pjoddnet.subnet6 }}::/{{ pjoddnet.prefix }} {
      AdvOnLink on;
      AdvAutonomous on;
      AdvRouterAddr on;
@@ -17,7 +17,7 @@ interface br-pjodd {
      AdvValidLifetime 86400;
   };
 
-  RDNSS fdec:910d:d05e::ff0{{ gateway_number }} {
+  RDNSS {{ pjoddnet.subnet6 }}::ff0{{ gateway_number }} {
   };
 
   route fc00::/7

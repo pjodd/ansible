@@ -3,9 +3,11 @@
 #  Configuration file for ferm(1).
 #
 
-@def $HOST_ADDR = ( {{ ansible_default_ipv4.address }} {{ ansible_default_ipv6.address }} );
-@def $PJODD_NET = ( 10.46.0.0/16 );
-@def $PJODD_NET6 = ( fdec:910d:d05e/64 );
+@def $HOST_ADDR = ( {{ outernet.inet.subnet }}.{{ gateway_number }} {% if outernet.inet6.subnet is defined %}{{ outernet.inet6.subnet }}{{ gateway_number }}{% endif %} );
+@def $PJODD_NET = ( {{ pjoddnet.subnet }}.0/{{ pjoddnet.cidr }} );
+{% if outernet.inet6.subnet is defined %}
+@def $PJODD_NET6 = ( {{ pjoddnet.subnet6 }}::/{{ pjoddnet.prefix }} );
+{% endif %}
 
 domain (ip ip6) {
     table filter {
@@ -24,6 +26,12 @@ domain (ip ip6) {
 
             # allow SSH connections
             daddr $HOST_ADDR proto tcp dport {{ ssh_port }}  ACCEPT;
+
+            # allow fastd connections
+            daddr $HOST_ADDR saddr ! $PJODD_NET proto udp dport {{ fastd_port }}  ACCEPT;
+{% if outernet.inet6.subnet is defined %}
+            daddr $HOST_ADDR saddr ! $PJODD_NET6 proto udp dport {{ fastd_port }}  ACCEPT;
+{% endif %}
         }
         chain OUTPUT {
             policy ACCEPT;
@@ -38,6 +46,8 @@ domain (ip ip6) {
             # connection tracking
             mod state state INVALID DROP;
             mod state state (ESTABLISHED RELATED) ACCEPT;
+
+	    saddr $PJODD_NET daddr ! $PJODD_NET interface br-pjodd ACCEPT;
         }
     }
 }
@@ -45,15 +55,17 @@ domain (ip ip6) {
 domain ip {
     table nat {
         chain POSTROUTING {
-	    saddr $PJODD_NET outerface eth0 MASQUERADE;
+	    saddr $PJODD_NET daddr ! $PJODD_NET outerface {{ ansible_default_ipv4.interface }} SNAT to {{ outernet.inet.subnet }}.{{ gateway_number }};
 	}
     }
 }
 
-#domain ip6 {
-#    table nat {
-#        chain POSTROUTING {
-#	    saddr $PJODD_NET6 outerface eth0 MASQUERADE;
-#	}
-#    }
-#}
+{% if outernet.inet6.subnet is defined %}
+domain ip6 {
+    table nat {
+        chain POSTROUTING {
+	    saddr $PJODD_NET6 daddr ! $PJODD_NET6 outerface {{ ansible_default_ipv6.interface }} MASQUERADE;
+	}
+    }
+}
+{% endif %}

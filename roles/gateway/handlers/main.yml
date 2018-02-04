@@ -12,3 +12,7 @@
 - name: save firewall rules (IPv6)
   shell: ip6tables-save > /etc/iptables/rules.v6
   listen: "save iptables"
+
+- name: run ifreload
+  command: ifreload -a
+  listen: "ifreload"
