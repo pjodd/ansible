@@ -1,0 +1,32 @@
+This is a short document on how to manually add a gateway to an uplink node.
+
+Log into the router and issue the command 'uci show | grep backbone_peer', you
+should get something like the following output,
+
+  fastd.mesh_vpn_backbone_peer_gw01=peer
+  fastd.mesh_vpn_backbone_peer_gw01.key='b5fdd77aaef60ef6e316ffce19aa5679795ea333befe66f2fc9b09d66ab28929'
+  fastd.mesh_vpn_backbone_peer_gw01.net='mesh_vpn'
+  fastd.mesh_vpn_backbone_peer_gw01.remote='ipv4 "gateway-01.mesh.pjodd.se" port 10006'
+  fastd.mesh_vpn_backbone_peer_gw01.group='mesh_vpn_backbone'
+  fastd.mesh_vpn_backbone_peer_gw01.enabled='1'
+
+To add a gateway, you need to add as many config options for the new gateway,
+for example _gw05 (instead of _gw01),
+
+  # uci set fastd.mesh_vpn_backbone_peer_gw05=peer
+
+etcetera.  You will find keys and remote addresses for the corresponding
+gateways at,
+
+  https://github.com/pjodd/gluon-gateway-peers
+
+After the config options are set, they need to be commited and fastd restarted,
+
+  # uci commit
+  # /etc/init.d/fastd restart
+
+More on gluon commandline administration here,
+
+  https://github.com/freifunk-gluon/gluon/wiki/Commandline-administration
+
+glhf!
