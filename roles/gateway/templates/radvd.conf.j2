@@ -17,7 +17,7 @@ interface br-pjodd {
      AdvValidLifetime 86400;
   };
 
-  RDNSS {{ pjoddnet.subnet6 }}::ff0{{ gateway_number }} {
+  RDNSS {% if outernet.inet6.dns is defined %}{{ outernet.inet6.dns }} {% endif %}{{ pjoddnet.subnet6 }}::ff0{{ gateway_number }} {
   };
 
   route fc00::/7
