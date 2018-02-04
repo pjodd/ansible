@@ -1,0 +1,18 @@
+---
+# file: roles/builder/tasks/packages.yml
+
+- name: Setup Debian Backports repo
+  apt_repository:
+    repo: deb http://ftp.se.debian.org/debian/ stretch-backports main
+    state: present
+
+- name: Update installed packages
+  apt:
+    upgrade: dist
+    update-cache: yes
+
+- name: Install packages
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+  with_items: "{{ builder_packages }}"

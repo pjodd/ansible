@@ -1,0 +1,11 @@
+---
+# file: roles/builder/tasks/firewall.yml
+
+- name: ferm.conf
+  template:
+    src: 'ferm.conf.j2'
+    dest: '/etc/ferm/ferm.conf'
+    owner: root
+    group: adm
+    mode: 0600
+  notify: run ferm

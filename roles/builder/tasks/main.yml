@@ -1,0 +1,6 @@
+---
+# file: roles/builder/tasks/main.yml
+
+- import_tasks: packages.yml
+- import_tasks: interfaces.yml
+- import_tasks: firewall.yml

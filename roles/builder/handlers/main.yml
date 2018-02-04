@@ -1,0 +1,18 @@
+---
+# file: roles/builder/handlers/main.yml
+
+- name: run ferm
+  command: ferm /etc/ferm/ferm.conf
+  notify: save iptables
+
+- name: save firewall rules (IPv4)
+  shell: iptables-save > /etc/iptables/rules.v4
+  listen: "save iptables"
+
+- name: save firewall rules (IPv6)
+  shell: ip6tables-save > /etc/iptables/rules.v6
+  listen: "save iptables"
+
+- name: run ifreload
+  command: ifreload -a
+  listen: "ifreload"
