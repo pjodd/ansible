@@ -27,6 +27,7 @@ builder_packages:
   - libssl-dev
   - wget
   - tmux
+  - ecdsautils
 
 gluon:
   version: v2017.1.5
