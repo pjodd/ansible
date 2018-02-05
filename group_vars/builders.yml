@@ -28,6 +28,9 @@ builder_packages:
   - wget
   - tmux
 
+gluon:
+  version: v2017.1.5
+
 builder_users:
   - omni
   - quite

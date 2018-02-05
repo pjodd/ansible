@@ -1,0 +1,22 @@
+---
+# file: roles/gateway/tasks/gluon-repos.yml
+
+- name: Install path exist
+  file:
+    path: /build/{{ ansible_env.SUDO_USER }}
+    state: directory
+    mode: 0755
+  become: no
+
+- name: Checkout gluon from github
+  git:
+    repo: https://github.com/freifunk-gluon/gluon.git
+    dest: /build/{{ ansible_env.SUDO_USER }}/gluon
+    version: "{{ gluon.version }}"
+  become: no
+
+- name: Checkout gluon site config from github
+  git:
+    repo: https://github.com/omniuwo/pjodd-gluon-site.git
+    dest: /build/{{ ansible_env.SUDO_USER }}/gluon/site
+  become: no
