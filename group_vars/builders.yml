@@ -26,6 +26,7 @@ builder_packages:
   - zlib1g-dev
   - libssl-dev
   - wget
+  - tmux
 
 builder_users:
   - omni
