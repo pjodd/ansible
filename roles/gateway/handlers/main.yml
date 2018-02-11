@@ -16,3 +16,9 @@
 - name: run ifreload
   command: ifreload -a
   listen: "ifreload"
+
+- name: restart fastd
+  service:
+    name: fastd
+    state: restarted
+  listen: "restart fastd"

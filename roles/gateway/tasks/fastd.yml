@@ -5,6 +5,7 @@
   git:
     repo: https://github.com/pjodd/gluon-gateway-peers.git
     dest: /etc/fastd/vpn/peers
+  notify: restart fastd
 
 - name: Generate fastd secret, if none (chmoded 0600)
   fastd_key:
@@ -17,16 +18,10 @@
     owner: root
     group: root
     mode: 0644
-  register: fastd_conf
+  notify: restart fastd
 
 - name: fastd enabled & started
   service:
     name: fastd
     enabled: yes
     state: started
-
-- name: restart fastd if config changed
-  service:
-    name: fastd
-    state: restarted
-  when: fastd_conf.changed
