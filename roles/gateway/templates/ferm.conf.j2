@@ -4,6 +4,7 @@
 #
 
 @def $HOST_ADDR = ( {{ outernet.inet.subnet }}.{{ gateway_number }} {% if outernet.inet6.subnet is defined %}{{ outernet.inet6.subnet }}{{ gateway_number }}{% endif %} );
+@def $PJODD_ADDR = ( {{ pjoddnet.subnet }}.{{ gateway_number }} {{ pjoddnet.subnet6 }}::ff0{{ gateway_number }} );
 @def $PJODD_NET = ( {{ pjoddnet.subnet }}.0/{{ pjoddnet.cidr }} );
 {% if outernet.inet6.subnet is defined %}
 @def $PJODD_NET6 = ( {{ pjoddnet.subnet6 }}::/{{ pjoddnet.prefix }} );
@@ -32,6 +33,9 @@ domain (ip ip6) {
 {% if outernet.inet6.subnet is defined %}
             daddr $HOST_ADDR saddr ! $PJODD_NET6 proto udp dport {{ fastd_port }}  ACCEPT;
 {% endif %}
+
+            # allow DNS queries to unbound
+	    daddr $PJODD_ADDR saddr ($PJODD_NET $PJODD_NET6) interface br-pjodd proto udp dport 53 ACCEPT;
         }
         chain OUTPUT {
             policy ACCEPT;
