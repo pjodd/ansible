@@ -1,0 +1,17 @@
+---
+# file: roles/gateway/tasks/dns.yml
+
+- name: unbound.conf
+  template:
+    src: 'unbound.conf.j2'
+    dest: '/etc/unbound/unbound.conf'
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart unbound
+
+- name: unbound enabled & started
+  service:
+    name: unbound
+    enabled: yes
+    state: started

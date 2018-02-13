@@ -43,6 +43,7 @@ gateway_packages:
   - kea-dhcp4-server
   - kea-dhcp6-server
   - radvd
+  - unbound
 
 gateway_users:
   - omni

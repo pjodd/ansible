@@ -22,3 +22,9 @@
     name: fastd
     state: restarted
   listen: "restart fastd"
+
+- name: restart unbound
+  service:
+    name: unbound
+    state: restarted
+  listen: "restart unbound"
