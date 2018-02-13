@@ -3,7 +3,7 @@
 #  Configuration file for ferm(1).
 #
 
-@def $HOST_ADDR = ( {{ outernet.inet.subnet }}.{{ gateway_number }} {% if outernet.inet6.subnet is defined %}{{ outernet.inet6.subnet }}{{ gateway_number }}{% endif %} );
+@def $HOST_ADDR = ( {{ outernet.inet.subnet }}.{{ gateway_number }}{% if outernet.inet6.subnet is defined %} {{ outernet.inet6.subnet }}{{ gateway_number }}{% endif %} );
 @def $PJODD_ADDR = ( {{ pjoddnet.subnet }}.{{ gateway_number }} {{ pjoddnet.subnet6 }}::ff0{{ gateway_number }} );
 @def $PJODD_NET = ( {{ pjoddnet.subnet }}.0/{{ pjoddnet.cidr }} );
 {% if outernet.inet6.subnet is defined %}
