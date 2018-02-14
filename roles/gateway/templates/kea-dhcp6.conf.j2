@@ -50,7 +50,7 @@
 
 # The following list defines subnets. Uncomment to enable them.
   "subnet6": [
-  {    "subnet": "{{ pjoddnet.subnet6 }}::/{{ pjoddnet.prefix }}",
+  {    "subnet": "{{ pjoddnet.subnet6 }}::/{{ pjoddnet.cidr6 }}",
        "pools": [ { "pool": "{{ pjoddnet.subnet6 }}:0:{{ gateway_number }}::/{{ pjoddnet.range6 }}" } ],
        "option-data": [
        {

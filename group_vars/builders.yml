@@ -6,7 +6,7 @@ pjoddnet:
   subnet: 10.46.0
   cidr: 16
   subnet6: "fdec:910d:d05e"
-  prefix: 64
+  cidr6: 64
   range6: 80
 
 builder_packages:

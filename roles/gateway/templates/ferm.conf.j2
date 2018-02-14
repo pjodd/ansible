@@ -7,7 +7,7 @@
 @def $PJODD_ADDR = ( {{ pjoddnet.subnet }}.{{ gateway_number }} {{ pjoddnet.subnet6 }}::ff0{{ gateway_number }} );
 @def $PJODD_NET = ( {{ pjoddnet.subnet }}.0/{{ pjoddnet.cidr }} );
 {% if outernet.inet6.subnet is defined %}
-@def $PJODD_NET6 = ( {{ pjoddnet.subnet6 }}::/{{ pjoddnet.prefix }} );
+@def $PJODD_NET6 = ( {{ pjoddnet.subnet6 }}::/{{ pjoddnet.cidr6 }} );
 {% endif %}
 
 domain (ip ip6) {

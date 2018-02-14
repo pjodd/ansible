@@ -11,7 +11,7 @@ interface br-pjodd {
   AdvOtherConfigFlag on;
   MaxRtrAdvInterval 200;
 
-  prefix {{ pjoddnet.subnet6 }}::/{{ pjoddnet.prefix }} {
+  prefix {{ pjoddnet.subnet6 }}::/{{ pjoddnet.cidr6 }} {
      AdvOnLink on;
      AdvAutonomous on;
      AdvRouterAddr on;

@@ -15,7 +15,7 @@ server:
 	access-control: {{ pjoddnet.subnet }}.0/{{ pjoddnet.cidr }} allow
 	access-control: ::0/0 deny
 	access-control: ::1 allow
-	access-control: {{ pjoddnet.subnet6 }}::/{{ pjoddnet.prefix }} allow
+	access-control: {{ pjoddnet.subnet6 }}::/{{ pjoddnet.cidr6 }} allow
 
 	hide-identity: no
 	hide-version: yes
