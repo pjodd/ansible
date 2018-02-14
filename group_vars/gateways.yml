@@ -44,6 +44,7 @@ gateway_packages:
   - kea-dhcp6-server
   - radvd
   - unbound
+  - ldnsutils
 
 gateway_users:
   - omni
