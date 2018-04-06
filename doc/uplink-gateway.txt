@@ -30,3 +30,7 @@ More on gluon commandline administration here,
   https://github.com/freifunk-gluon/gluon/wiki/Commandline-administration
 
 glhf!
+
+check out the scripts if you are lazy but keep in mind that the ips and keys might change in the future:
+gateway-05-gluon-settings.bash
+gateway-06-gluon-settings.bash
