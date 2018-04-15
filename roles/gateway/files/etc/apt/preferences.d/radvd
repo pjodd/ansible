@@ -1,3 +1,0 @@
-Package: radvd
-Pin: release a=stretch-backports
-Pin-Priority: 600
