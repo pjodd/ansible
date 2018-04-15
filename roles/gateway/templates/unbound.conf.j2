@@ -57,6 +57,8 @@ server:
 	local-data-ptr: "10.46.0.6  gateway-06.pjodd"
 	local-data-ptr: "10.46.254.254 anycast.pjodd"
 
+	include: /etc/unbound/adservers
+
 forward-zone:
 	name: "."	# use for all queries
 	forward-addr: 46.246.46.246
