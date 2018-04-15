@@ -47,15 +47,23 @@ server:
 	# These should probably be put in a stub-zone and served by NSD
 	local-zone: "pjodd." static
 
-	local-data: "gateway-01.pjodd.  IN A 10.46.0.1"
-	local-data: "gateway-05.pjodd.  IN A 10.46.0.5"
-	local-data: "gateway-06.pjodd.  IN A 10.46.0.6"
+	local-data: "gateway-01.pjodd.  IN A {{ pjoddnet.subnet }}.1"
+	local-data: "gateway-01.pjodd.  IN AAAA {{ pjoddnet.subnet6 }}::ff01"
+	local-data: "gateway-05.pjodd.  IN A {{ pjoddnet.subnet }}.5"
+	local-data: "gateway-05.pjodd.  IN AAAA {{ pjoddnet.subnet6 }}::ff05"
+	local-data: "gateway-06.pjodd.  IN A {{ pjoddnet.subnet }}.6"
+	local-data: "gateway-06.pjodd.  IN AAAA {{ pjoddnet.subnet6 }}::ff06"
 	local-data: "anycast.pjodd. IN A 10.46.254.254"
+	local-data: "anycast.pjodd. IN AAAA {{ pjoddnet.subnet6 }}::cafe"
 
-	local-data-ptr: "10.46.0.1  gateway-01.pjodd"
-	local-data-ptr: "10.46.0.5  gateway-05.pjodd"
-	local-data-ptr: "10.46.0.6  gateway-06.pjodd"
+	local-data-ptr: "{{ pjoddnet.subnet }}.1  gateway-01.pjodd"
+	local-data-ptr: "{{ pjoddnet.subnet6 }}::ff01  gateway-01.pjodd"
+	local-data-ptr: "{{ pjoddnet.subnet }}.5  gateway-05.pjodd"
+	local-data-ptr: "{{ pjoddnet.subnet6 }}::ff05  gateway-05.pjodd"
+	local-data-ptr: "{{ pjoddnet.subnet }}.6  gateway-06.pjodd"
+	local-data-ptr: "{{ pjoddnet.subnet6 }}::ff06  gateway-06.pjodd"
 	local-data-ptr: "10.46.254.254 anycast.pjodd"
+	local-data-ptr: "{{ pjoddnet.subnet6 }}::cafe anycast.pjodd"
 
 	include: /etc/unbound/adservers
 
