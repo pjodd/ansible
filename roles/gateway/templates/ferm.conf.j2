@@ -52,6 +52,7 @@ domain (ip ip6) {
             mod state state (ESTABLISHED RELATED) ACCEPT;
 
 	    saddr $PJODD_NET daddr ! $PJODD_NET interface br-pjodd ACCEPT;
+	    saddr $PJODD_NET6 daddr ! $PJODD_NET6 interface br-pjodd ACCEPT;
         }
     }
 }
