@@ -11,6 +11,10 @@ interface br-pjodd {
   AdvOtherConfigFlag on;
   MaxRtrAdvInterval 200;
 
+  AdvRASrcAddress {
+     {{ pjoddnet.subnet6 }}::ff0{{ gateway_number }};
+  };
+
   prefix {{ pjoddnet.subnet6 }}::/{{ pjoddnet.cidr6 }} {
      AdvOnLink on;
      AdvAutonomous on;
