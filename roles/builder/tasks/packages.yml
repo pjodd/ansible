@@ -1,18 +1,10 @@
 ---
-# file: roles/gateway/tasks/packages.yml
+# file: roles/builder/tasks/packages.yml
 
 - name: Setup Debian Backports repo
   apt_repository:
     repo: deb http://ftp.se.debian.org/debian/ stretch-backports main
     state: present
-
-- name: Copy apt_preferences(5) files
-  copy:
-    src: files/etc/apt/preferences.d/
-    dest: /etc/apt/preferences.d
-    owner: root
-    group: root
-    mode: 0644
 
 - name: Update installed packages
   apt:
@@ -23,4 +15,4 @@
   apt:
     pkg: "{{ item }}"
     state: latest
-  with_items: "{{ gateway_packages }}"
+  with_items: "{{ builder_packages }}"

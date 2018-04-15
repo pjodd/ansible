@@ -1,5 +1,5 @@
 ---
-# file: roles/gateway/handlers/main.yml
+# file: roles/builder/handlers/main.yml
 
 - name: run ferm
   command: ferm /etc/ferm/ferm.conf
@@ -16,15 +16,3 @@
 - name: run ifreload
   command: ifreload -a
   listen: "ifreload"
-
-- name: restart fastd
-  service:
-    name: fastd
-    state: restarted
-  listen: "restart fastd"
-
-- name: restart unbound
-  service:
-    name: unbound
-    state: restarted
-  listen: "restart unbound"

@@ -1,0 +1,9 @@
+---
+# file: setup-builder.yml
+- hosts: builders
+  gather_facts: true
+  become: yes
+  become_method: sudo
+
+  roles:
+    - builder

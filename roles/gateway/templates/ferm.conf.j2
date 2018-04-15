@@ -1,12 +1,13 @@
 # -*- shell-script -*-
 #
-#  Configuration file for ferm(1).
+#  Configuration file for ferm(1), {{ ansible_managed }}.
 #
 
-@def $HOST_ADDR = ( {{ outernet.inet.subnet }}.{{ gateway_number }} {% if outernet.inet6.subnet is defined %}{{ outernet.inet6.subnet }}{{ gateway_number }}{% endif %} );
+@def $HOST_ADDR = ( {{ outernet.inet.subnet }}.{{ gateway_number }}{% if outernet.inet6.subnet is defined %} {{ outernet.inet6.subnet }}{{ gateway_number }}{% endif %} );
+@def $PJODD_ADDR = ( {{ pjoddnet.subnet }}.{{ gateway_number }} {{ pjoddnet.subnet6 }}::ff0{{ gateway_number }} );
 @def $PJODD_NET = ( {{ pjoddnet.subnet }}.0/{{ pjoddnet.cidr }} );
 {% if outernet.inet6.subnet is defined %}
-@def $PJODD_NET6 = ( {{ pjoddnet.subnet6 }}::/{{ pjoddnet.prefix }} );
+@def $PJODD_NET6 = ( {{ pjoddnet.subnet6 }}::/{{ pjoddnet.cidr6 }} );
 {% endif %}
 
 domain (ip ip6) {
@@ -28,10 +29,13 @@ domain (ip ip6) {
             daddr $HOST_ADDR proto tcp dport {{ ssh_port }}  ACCEPT;
 
             # allow fastd connections
-            daddr $HOST_ADDR saddr ! $PJODD_NET proto udp dport {{ fastd_port }}  ACCEPT;
+            daddr $HOST_ADDR saddr !$PJODD_NET proto udp dport {{ fastd_port }}  ACCEPT;
 {% if outernet.inet6.subnet is defined %}
-            daddr $HOST_ADDR saddr ! $PJODD_NET6 proto udp dport {{ fastd_port }}  ACCEPT;
+            daddr $HOST_ADDR saddr !$PJODD_NET6 proto udp dport {{ fastd_port }}  ACCEPT;
 {% endif %}
+
+            # allow DNS queries to unbound
+	    daddr $PJODD_ADDR saddr ($PJODD_NET $PJODD_NET6) interface br-pjodd proto udp dport 53 ACCEPT;
         }
         chain OUTPUT {
             policy ACCEPT;
@@ -47,7 +51,8 @@ domain (ip ip6) {
             mod state state INVALID DROP;
             mod state state (ESTABLISHED RELATED) ACCEPT;
 
-	    saddr $PJODD_NET daddr ! $PJODD_NET interface br-pjodd ACCEPT;
+	    saddr $PJODD_NET daddr !$PJODD_NET interface br-pjodd ACCEPT;
+	    saddr $PJODD_NET6 daddr !$PJODD_NET6 interface br-pjodd ACCEPT;
         }
     }
 }
@@ -55,7 +60,7 @@ domain (ip ip6) {
 domain ip {
     table nat {
         chain POSTROUTING {
-	    saddr $PJODD_NET daddr ! $PJODD_NET outerface {{ ansible_default_ipv4.interface }} SNAT to {{ outernet.inet.subnet }}.{{ gateway_number }};
+	    saddr $PJODD_NET daddr !$PJODD_NET outerface {{ ansible_default_ipv4.interface }} SNAT to {{ outernet.inet.subnet }}.{{ gateway_number }};
 	}
     }
 }
@@ -64,7 +69,7 @@ domain ip {
 domain ip6 {
     table nat {
         chain POSTROUTING {
-	    saddr $PJODD_NET6 daddr ! $PJODD_NET6 outerface {{ ansible_default_ipv6.interface }} MASQUERADE;
+	    saddr $PJODD_NET6 daddr !$PJODD_NET6 outerface {{ ansible_default_ipv6.interface }} MASQUERADE;
 	}
     }
 }

@@ -1,0 +1,37 @@
+---
+# file: group_vars/gateways.yml
+
+pjoddnet:
+  netmask: 255.255.0.0
+  subnet: 10.46.0
+  cidr: 16
+  subnet6: "fdec:910d:d05e"
+  cidr6: 64
+  range6: 80
+
+builder_packages:
+  - git
+  - haveged
+  - ferm
+  - iptables-persistent
+  - net-tools
+  - iftop
+  - ifupdown2
+  - subversion
+  - python
+  - build-essential
+  - gawk
+  - unzip
+  - libncurses5-dev
+  - zlib1g-dev
+  - libssl-dev
+  - wget
+  - tmux
+  - ecdsautils
+
+gluon:
+  version: v2017.1.5
+
+builder_users:
+  - omni
+  - quite

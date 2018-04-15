@@ -1,3 +1,5 @@
+# {{ ansible_managed }}
+#
 interface br-pjodd {
   AdvSendAdvert on;
   #
@@ -9,7 +11,11 @@ interface br-pjodd {
   AdvOtherConfigFlag on;
   MaxRtrAdvInterval 200;
 
-  prefix {{ pjoddnet.subnet6 }}::/{{ pjoddnet.prefix }} {
+  AdvRASrcAddress {
+     {{ pjoddnet.subnet6 }}::ff0{{ gateway_number }};
+  };
+
+  prefix {{ pjoddnet.subnet6 }}::/{{ pjoddnet.cidr6 }} {
      AdvOnLink on;
      AdvAutonomous on;
      AdvRouterAddr on;
@@ -17,7 +23,7 @@ interface br-pjodd {
      AdvValidLifetime 86400;
   };
 
-  RDNSS {% if outernet.inet6.dns is defined %}{{ outernet.inet6.dns }} {% endif %}{{ pjoddnet.subnet6 }}::ff0{{ gateway_number }} {
+  RDNSS {{ pjoddnet.subnet6 }}::ff0{{ gateway_number }} {
   };
 
   route fc00::/7

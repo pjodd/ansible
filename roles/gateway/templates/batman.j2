@@ -1,3 +1,5 @@
+# {{ ansible_managed }}
+
 allow-hotplug bat0
 iface bat0 inet6 manual
   pre-up /usr/sbin/batctl if add tap0
@@ -14,4 +16,4 @@ iface br-pjodd inet static
   bridge-ports bat0
 
 iface br-pjodd inet6 static
-  address {{ pjoddnet.subnet6 }}::ff0{{ gateway_number }}/{{ pjoddnet.prefix }}
+  address {{ pjoddnet.subnet6 }}::ff0{{ gateway_number }}/{{ pjoddnet.cidr6 }}

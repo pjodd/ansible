@@ -1,0 +1,25 @@
+---
+# file: roles/gateway/tasks/dns.yml
+
+- name: unbound.conf
+  template:
+    src: 'unbound.conf.j2'
+    dest: '/etc/unbound/unbound.conf'
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart unbound
+
+- name: unbound/adservers
+  copy:
+    src: 'files/etc/unbound/adservers'
+    dest: '/etc/unbound/adservers'
+    owner: root
+    group: root
+    mode: 0644
+
+- name: unbound enabled & started
+  service:
+    name: unbound
+    enabled: yes
+    state: started

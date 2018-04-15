@@ -1,0 +1,67 @@
+# {{ ansible_managed }} unbound.conf(5)
+#
+# Commented: /usr/share/doc/unbound/examples/unbound.conf
+# Calomel tutorial: https://calomel.org/unbound_dns.html
+
+server:
+	interface: 127.0.0.1
+	interface: {{ pjoddnet.subnet }}.{{ gateway_number }}
+	interface: ::1
+	interface: {{ pjoddnet.subnet6 }}::ff0{{ gateway_number }}
+	do-ip6: yes
+
+	access-control: 0.0.0.0/0 deny
+	access-control: 127.0.0.0/8 allow
+	access-control: {{ pjoddnet.subnet }}.0/{{ pjoddnet.cidr }} allow
+	access-control: ::0/0 deny
+	access-control: ::1 allow
+	access-control: {{ pjoddnet.subnet6 }}::/{{ pjoddnet.cidr6 }} allow
+
+	hide-identity: no
+	hide-version: yes
+
+	prefetch: yes
+	minimal-responses: yes
+	qname-minimisation: yes
+
+	#cache-min-ttl: 900		# default 0
+	#outgoing-range: 4096		# default 4096
+	so-rcvbuf: 4m			# default 0
+	msg-cache-size: 64m		# default 4m
+	rrset-cache-size: 64m		# default 4m
+	infra-cache-numhosts: 50000	# default 10000
+
+	do-not-query-localhost: no
+
+	private-address: 10.0.0.0/8
+	private-address: 172.16.0.0/12
+	private-address: 192.168.0.0/16
+	private-address: 169.254.0.0/16
+	private-address: fd00::/8
+	private-address: fe80::/10
+	private-address: ::ffff:0:0/96
+
+	# Allow the domain (and its subdomains) to contain private addresses.
+	private-domain: "pjodd"
+
+	# These should probably be put in a stub-zone and served by NSD
+	local-zone: "pjodd." static
+
+	local-data: "gateway-01.pjodd.  IN A 10.46.0.1"
+	local-data: "gateway-05.pjodd.  IN A 10.46.0.5"
+	local-data: "gateway-06.pjodd.  IN A 10.46.0.6"
+	local-data: "anycast.pjodd. IN A 10.46.254.254"
+
+	local-data-ptr: "10.46.0.1  gateway-01.pjodd"
+	local-data-ptr: "10.46.0.5  gateway-05.pjodd"
+	local-data-ptr: "10.46.0.6  gateway-06.pjodd"
+	local-data-ptr: "10.46.254.254 anycast.pjodd"
+
+	include: /etc/unbound/adservers
+
+forward-zone:
+	name: "."	# use for all queries
+	forward-addr: 46.246.46.246
+	forward-addr: 194.132.32.32
+	forward-addr: 2001:67C:1350:DEAD:BEEF::246
+	forward-addr: 2C0F:F930:DEAD:BEEF::32

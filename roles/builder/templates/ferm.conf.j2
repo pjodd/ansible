@@ -1,0 +1,42 @@
+# -*- shell-script -*-
+#
+#  Configuration file for ferm(1).
+#
+
+@def $HOST_ADDR = ( {{ outernet.inet.subnet }}.9 {% if outernet.inet6.subnet is defined %}{{ outernet.inet6.subnet }}9{% endif %} );
+
+domain (ip ip6) {
+    table filter {
+        chain INPUT {
+            policy DROP;
+
+            # connection tracking
+            mod state state INVALID DROP;
+            mod state state (ESTABLISHED RELATED) ACCEPT;
+
+            # allow local packet
+            interface lo ACCEPT;
+
+            # respond to ping
+            proto icmp ACCEPT;
+
+            # allow SSH connections
+            daddr $HOST_ADDR proto tcp dport {{ ssh_port }}  ACCEPT;
+
+        }
+        chain OUTPUT {
+            policy ACCEPT;
+
+            # connection tracking
+            #mod state state INVALID DROP;
+            mod state state (ESTABLISHED RELATED) ACCEPT;
+        }
+        chain FORWARD {
+            policy DROP;
+
+            # connection tracking
+            mod state state INVALID DROP;
+            mod state state (ESTABLISHED RELATED) ACCEPT;
+        }
+    }
+}

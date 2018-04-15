@@ -1,3 +1,5 @@
+# {{ ansible_managed }}
+#
 # This is a basic configuration for DHCPv6 server.
 # Subnet declarations are commented out and no interfaces are listed.
 # Therefore, the servers will not listen or respond to any queries.
@@ -48,7 +50,7 @@
 
 # The following list defines subnets. Uncomment to enable them.
   "subnet6": [
-  {    "subnet": "{{ pjoddnet.subnet6 }}::/{{ pjoddnet.prefix }}",
+  {    "subnet": "{{ pjoddnet.subnet6 }}::/{{ pjoddnet.cidr6 }}",
        "pools": [ { "pool": "{{ pjoddnet.subnet6 }}:0:{{ gateway_number }}::/{{ pjoddnet.range6 }}" } ],
        "option-data": [
        {
@@ -56,7 +58,7 @@
 	 "code": 23,
 	 "space": "dhcp6",
 	 "csv-format": true,
-         "data": "2001:67C:1350:DEAD:BEEF::246, 2C0F:F930:DEAD:BEEF::32"
+         "data": "{{ pjoddnet.subnet6 }}::ff0{{ gateway_number }}"
        } ]
   } ]
 },

@@ -1,3 +1,5 @@
+# {{ ansible_managed }}
+
 log to syslog level debug;
 bind any:{{ fastd_port }} interface "{{ ansible_default_ipv4.interface }}"; # Ditt nätverksinterface ut mot internet
 method "salsa2012+umac";
