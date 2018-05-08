@@ -23,6 +23,10 @@
     state: restarted
   listen: "restart fastd"
 
+- name: reload fastd peers
+  command: pkill -HUP fastd
+  listen: "reload fastd peers"
+
 - name: restart unbound
   service:
     name: unbound
