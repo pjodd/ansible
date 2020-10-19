@@ -4,6 +4,8 @@
 {
   # mainly for ACME account for certificate generation
   email d-pjodd@lublin.se
+  # don't run admin api on port 2019, we config using file and restart
+  admin off
 }
 
 pjodd.se {
