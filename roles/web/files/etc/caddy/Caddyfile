@@ -1,0 +1,12 @@
+# Caddy's configuration file
+# see: https://caddyserver.com/docs/caddyfile
+
+{
+  # mainly for ACME account for certificate generation
+  email d-pjodd@lublin.se
+}
+
+pjodd.se {
+  root * /var/www/pjodd.se/
+  file_server
+}

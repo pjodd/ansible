@@ -1,0 +1,25 @@
+
+- name: Install caddy2
+  command: apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community "caddy>=2" caddy-openrc
+  args:
+    creates: /usr/sbin/caddy
+
+- name: Ensure correct caddy2 homedir
+  user: name=caddy home=/var/lib/caddy
+- name: Ensure caddy2 homedir owner
+  file: name=/var/lib/caddy owner=caddy group=caddy
+
+- name: Start caddy2
+  service:
+    name: caddy
+    enabled: yes
+    state: started
+
+- name: caddy2 Caddyfile
+  copy:
+    src: 'files/etc/caddy/Caddyfile'
+    dest: '/etc/caddy/Caddyfile'
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart-caddy

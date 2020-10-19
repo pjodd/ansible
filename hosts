@@ -3,6 +3,7 @@ gw05=198.167.222.5
 gw06=198.167.222.6
 fwalpine=198.167.222.7
 builder=198.167.222.9
+simsek=simsek.pjodd.se
 
 [gateways]
 gw05 gateway_number=5 ssh_port=5522
@@ -18,9 +19,13 @@ builder
 
 [alpines]
 fwalpine
+simsek
 
 [dc-ipr]
 fwalpine
 gw05
 gw06
 builder
+
+[web]
+simsek ansible_user=root ansible_python_interpreter=/usr/bin/python3
