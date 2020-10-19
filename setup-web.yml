@@ -1,6 +1,7 @@
 
 - hosts: web
   gather_facts: true
+  # ssh as root
   become: false
 
   roles:
