@@ -1,16 +1,16 @@
 # Define hosts
-gw05=198.167.222.5
-gw06=198.167.222.6
-fwalpine=198.167.222.7
-builder=198.167.222.9
-simsek=simsek.pjodd.se
+gw05 gateway_number=5 ssh_port=5522 ansible_host=198.167.222.5
+gw06 gateway_number=6 ssh_port=6622 ansible_host=198.167.222.6
+fwalpine ansible_host=198.167.222.7
+builder ssh_port=9922 ansible_host=198.167.222.9
+simsek ansible_host=simsek.pjodd.se
 
 [gateways]
-gw05 gateway_number=5 ssh_port=5522
-gw06 gateway_number=6 ssh_port=6622
+gw05
+gw06
 
 [builders]
-builder ssh_port=9922
+builder 
 
 [debians]
 gw05
