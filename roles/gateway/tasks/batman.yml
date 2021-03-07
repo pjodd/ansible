@@ -21,4 +21,4 @@
     owner: root
     group: root
     mode: 0644
-  notify: ifreload
+  notify: reload networking

@@ -38,14 +38,15 @@ gateway_packages:
   - iptables-persistent
   - net-tools
   - iftop
-  - tcpdump
-  - ifupdown2
-  - kea-dhcp4-server
-  - kea-dhcp6-server
   - radvd
   - unbound
   - ldnsutils
   - nsd
+
+# This is a hack. kea-dhcp-server is not available in debian 10, only debian 9.
+gateway_packages_kea:
+  - kea-dhcp4-server
+  - kea-dhcp6-server
 
 gateway_users:
   - omni

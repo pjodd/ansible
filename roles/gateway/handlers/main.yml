@@ -13,9 +13,10 @@
   shell: ip6tables-save > /etc/iptables/rules.v6
   listen: "save iptables"
 
-- name: run ifreload
-  command: ifreload -a
-  listen: "ifreload"
+- name: reload networking
+  service:
+    name: network
+    state: reoladed
 
 - name: restart fastd
   service:

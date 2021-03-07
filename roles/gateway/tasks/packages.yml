@@ -1,10 +1,27 @@
 ---
 # file: roles/gateway/tasks/packages.yml
 
-- name: Setup Debian Backports repo
-  apt_repository:
-    repo: deb http://ftp.se.debian.org/debian/ stretch-backports main
+# Not required for debian 10
+#- name: Setup Debian Backports repo
+#  apt_repository:
+#    repo: deb http://ftp.se.debian.org/debian/ stretch-backports main
+#    state: present
+
+#- name: Setup Debian Backports repo
+#  apt_repository:
+#    repo: deb http://ftp.se.debian.org/debian/ stretch-backports main
+#    state: present
+
+# TODO: switch to another dhcp server
+- name: Setup debian 9 repo (for kea-dhcp-server)
+  ansible.builtin.apt_repository:
+    repo: deb http://deb.debian.org/debian stretch main contrib non-free
     state: present
+
+- name: Set debian 9 repo to lower prio
+  copy:
+    src: files/kea_dhcp_server_pinned.pref
+    dest: /etc/apt/preferences.d/
 
 - name: Update installed packages
   apt:
@@ -13,6 +30,11 @@
 
 - name: Install packages
   apt:
-    pkg: "{{ item }}"
+    pkg: "{{ gateway_packages }}"
     state: latest
-  with_items: "{{ gateway_packages }}"
+
+# kea-dhcp-server is not available in debian 10
+- name: Install kea-dhcp-server
+  apt:
+    pkg: "{{ gateway_packages_kea }}"
+    state: latest

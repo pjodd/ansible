@@ -1,6 +1,7 @@
 ---
 # file: roles/gateway/tasks/dns.yml
 
+
 - name: unbound.conf
   template:
     src: 'unbound.conf.j2'
@@ -17,6 +18,13 @@
     owner: root
     group: root
     mode: 0644
+
+- name: Disable nsd on Hetzner hosts
+  ansible.builtin.service:
+    name: nsd
+    enabled: no 
+    state: stopped
+  when: provider == "hetzner"
 
 - name: unbound enabled & started
   service:

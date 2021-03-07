@@ -4,6 +4,11 @@
 - import_tasks: packages.yml
 - import_tasks: interfaces.yml
 - import_tasks: firewall.yml
+
+- name: Reboot machine to enable network changes
+  reboot:
+  when: provider == "hetzner"
+
 - import_tasks: fastd.yml
 - import_tasks: batman.yml
 - import_tasks: dns.yml
