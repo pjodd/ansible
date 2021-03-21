@@ -6,12 +6,13 @@
     content: "network: {config: disabled}"
     dest: /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
     force: yes
-  when: provider == "hetzner"
+  when: provider is defined and provider == "hetzner"
 
 - name: Delete Hetzner cloud config as well
   file:
     name: /etc/network/interfaces.d/50-cloud-init
     state: absent
+  when: provider is defined and provider == "hetzner"
 
 - name: Template /etc/network/interfaces
   template:

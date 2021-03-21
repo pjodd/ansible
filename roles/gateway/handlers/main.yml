@@ -16,7 +16,7 @@
 - name: reload networking
   service:
     name: network
-    state: reoladed
+    state: reloaded
 
 - name: restart fastd
   service:

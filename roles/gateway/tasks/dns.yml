@@ -24,7 +24,7 @@
     name: nsd
     enabled: no 
     state: stopped
-  when: provider == "hetzner"
+  when: provider is defined and provider == "hetzner"
 
 - name: unbound enabled & started
   service:
