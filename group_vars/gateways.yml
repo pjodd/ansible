@@ -11,6 +11,8 @@ pjoddnet:
   gw:
     1:
       range: "10.46.64.1 - 10.46.95.254"
+      dns: 46.246.46.246 194.132.32.32
+      bw: "128Mbit/128Mbit"
     2:
       range: "10.46.96.1 - 10.46.127.254"
     3:
@@ -38,14 +40,15 @@ gateway_packages:
   - iptables-persistent
   - net-tools
   - iftop
-  - tcpdump
-  - ifupdown2
-  - kea-dhcp4-server
-  - kea-dhcp6-server
   - radvd
   - unbound
   - ldnsutils
   - nsd
+
+# This is a hack. kea-dhcp-server is not available in debian 10, only debian 9.
+gateway_packages_kea:
+  - kea-dhcp4-server
+  - kea-dhcp6-server
 
 gateway_users:
   - omni

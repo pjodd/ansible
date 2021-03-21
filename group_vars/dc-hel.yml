@@ -1,0 +1,17 @@
+---
+# file: group_vars/dc-hel.yml
+# VM on private server provided by friend of Robert
+
+outernet:
+  inet:
+    gw: 95.216.239.97
+    netmask: 255.255.255.224
+    subnet: 95.216.239
+    cidr: 27
+    dns: 46.246.46.246 194.132.32.32
+
+  inet6:
+    gw: "fe80::1"
+    subnet: "fe80::"
+    cidr: 64
+    dns: "2001:67C:1350:DEAD:BEEF::246 2C0F:F930:DEAD:BEEF::32"

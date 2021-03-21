@@ -12,8 +12,15 @@ iface lo inet loopback
 # The primary network interface
 auto eth0
 iface eth0 inet static
+{% if outernet.inet.address is defined %}
+  address {{ outernet.inet.address }}/{{ outernet.inet.cidr }}
+{% else %}
   address {{ outernet.inet.subnet }}.{{ gateway_number }}/{{ outernet.inet.cidr }}
+{% endif %}
   gateway {{ outernet.inet.gw }}
+{% if outernet.inet.pointtopoint is defined %}
+  pointtopoint {{ outernet.inet.pointtopoint }}
+{% endif %}
   # dns-* options are implemented by the resolvconf package, if installed
   dns-nameservers {{ outernet.inet.dns }}
   dns-search pjodd.se
